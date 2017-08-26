@@ -35,7 +35,14 @@ CREATE TABLE IF NOT EXISTS `developer_db`.`customers` (
 CREATE TABLE IF NOT EXISTS `developer_db`.`itcompany` (
   `itcompany_id` INT(11) NOT NULL AUTO_INCREMENT,
   `companyName` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`itcompany_id`, `companyName`))
+  `customer_id_fk` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`itcompany_id`, `companyName`),
+  INDEX `customer_id_idx` (`customer_id_fk` ASC),
+  CONSTRAINT `customer_id_fk`
+  FOREIGN KEY (`customer_id_fk`)
+  REFERENCES `developer_db`.`customers` (`customer_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
   ENGINE = InnoDB
   AUTO_INCREMENT = 4
   DEFAULT CHARACTER SET = utf8;
