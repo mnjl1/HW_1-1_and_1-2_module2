@@ -1,3 +1,5 @@
-SELECT customerName, min(projects.cost-developers.salary) from projects
-  INNER JOIN customers
-  INNER JOIN developers
+SELECT c.customerName, min(Profit) FROM (SELECT customerName, projectName, cost, sum(cost-developers.salary) AS Profit
+                                         FROM customers INNER JOIN projects ON customers.customer_id = projects.customer_id
+                                           INNER JOIN developers ON projects.developer_id = developers.developer_id
+                                         GROUP BY customerName) as c
+
